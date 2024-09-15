@@ -16,7 +16,7 @@ import java.util.Date;
 @RestController
 public class LoginController {
     @Autowired
-    private PasswordEncoder encoder;
+    private PasswordEncoder  encoder;
     @Autowired
     private SecurityConfig securityConfig;
     @Autowired
