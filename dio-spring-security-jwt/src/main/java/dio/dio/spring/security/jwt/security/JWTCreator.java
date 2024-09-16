@@ -1,11 +1,9 @@
 package dio.dio.spring.security.jwt.security;
 
-import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.crypto.SecretKey;
 import java.security.Key;
-import java.nio.charset.StandardCharsets;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -24,6 +22,7 @@ public class JWTCreator {
             .signWith(getKey(key)).compact();
         return prefix + " " + token;
     }
+    @SuppressWarnings("unchecked")
     public static JWTObject create(String token, String prefix, String key)
             throws ExpiredJwtException, UnsupportedJwtException, MalformedJwtException {
         JWTObject object = new JWTObject();
@@ -33,7 +32,7 @@ public class JWTCreator {
         object.setSubject(claims.getSubject());
         object.setExpiration(claims.getExpiration());
         object.setIssuedAt(claims.getIssuedAt());
-        object.setRoles((List) claims.get(ROLES_AUTHORITIES));
+        object.setRoles((List<String>) claims.get(ROLES_AUTHORITIES));
         return object;
 
     }
